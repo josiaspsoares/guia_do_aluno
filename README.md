@@ -1,16 +1,11 @@
-# guia_do_aluno
+# Guia do Aluno
 
-A new Flutter project.
+Aplicativo desenvolvido em Flutter para me ajudar a organizar alguns recursos da faculdade, como informações das disciplinas, contato dos professores e acesso a materiais.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<p align="start">
+    <img src="/screenshots/home.png" width="350" title="Home Page">
+    <img src="/screenshots/subjects.png" width="350" title="Subjects Page">
+    <img src="/screenshots/professors.png" width="350" title="Professors Page">
+    <img src="/screenshots/courseware.png" width="350" title="Courseware Page">
+    <img src="/screenshots/notices.png" width="350" title="Notices Page">
+</p>
