@@ -9,7 +9,7 @@ class WhatsappButton extends StatelessWidget {
   const WhatsappButton({Key? key, required this.phone}) : super(key: key);
 
   _sendWhatsAppMessage() async {
-    var whatsappUrl = "whatsapp://send?phone=+55$phone&text=Olá,tudo bem?";
+    var whatsappUrl = "https://api.whatsapp.com/send?phone=55$phone&text=Olá,tudo bem?";
 
     if (await canLaunch(whatsappUrl)) {
       await launch(whatsappUrl);
