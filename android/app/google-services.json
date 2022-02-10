@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "345724410380",
+    "project_id": "guia-7985e",
+    "storage_bucket": "guia-7985e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:345724410380:android:a282e4f75c1ac517c52c29",
+        "android_client_info": {
+          "package_name": "com.example.guia_do_aluno"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "345724410380-1lkp4966d5li3c2co942kuvflnlqof4v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.guia_do_aluno",
+            "certificate_hash": "9aafaad67e25f1132e35cea500dd5f8a0f96536e"
+          }
+        },
+        {
+          "client_id": "345724410380-fgps44ot9v33addnvcic9rsmt546s002.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.guia_do_aluno",
+            "certificate_hash": "e5982115d2d44022f615d84988fc059c81c504a1"
+          }
+        },
+        {
+          "client_id": "345724410380-tiev5ohh5biq2upoiqu5ssbt2t5hq7hp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhPTve3kZ3vTYjZu1klHO_aOCL7Vk7z7U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "345724410380-tiev5ohh5biq2upoiqu5ssbt2t5hq7hp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
