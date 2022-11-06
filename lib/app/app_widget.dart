@@ -18,37 +18,32 @@ class _AppWidgetState extends State<AppWidget> {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   late FlutterLocalNotificationsPlugin fltNotification;
 
-  void pushFCMtoken() async {
-    String? token = await messaging.getToken();
-    debugPrint(token);
+  void subscribeToTopicAll() async {
+    await messaging.subscribeToTopic('all');
   }
 
-  void _launchUrl({required String url}) async =>
-      await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
+  void _launchUrl({required String url}) async => await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
 
   @override
   void initState() {
     super.initState();
     Firebase.initializeApp();
-    pushFCMtoken();
+    subscribeToTopicAll();
     initMessaging();
   }
 
   void initMessaging() {
-    var androiInit =
-        const AndroidInitializationSettings('@mipmap/ic_launcher'); //for logo
+    var androiInit = const AndroidInitializationSettings('@mipmap/ic_launcher');
+   
     var iosInit = const IOSInitializationSettings();
-    var initSetting = InitializationSettings(android: androiInit, iOS: iosInit);
-    fltNotification = FlutterLocalNotificationsPlugin();
-    fltNotification.initialize(initSetting,
-        onSelectNotification: (String? payload) async {
-      debugPrint('notification payload: $payload');
 
+    var initSetting = InitializationSettings(android: androiInit, iOS: iosInit);
+
+    fltNotification = FlutterLocalNotificationsPlugin();
+
+    fltNotification.initialize(initSetting, onSelectNotification: (String? payload) async {
       if (payload != null) {
-        if (payload == "disciplinas" ||
-            payload == "avisos" ||
-            payload == "materiais" ||
-            payload == "professores") {
+        if (payload == "disciplinas" || payload == "avisos" || payload == "materiais" || payload == "professores") {
           Modular.to.pushNamed('/$payload');
         } else if (payload.contains("https://adx.doctum.edu.br")) {
           _launchUrl(url: payload);
@@ -57,17 +52,24 @@ class _AppWidgetState extends State<AppWidget> {
         }
       }
     });
+
+
     var androidDetails = const AndroidNotificationDetails(
-        '1', 'channelName', 'channel Description');
+      '1',
+      'Main',
+      'Canal Principal',
+      importance: Importance.max,
+      priority: Priority.high,
+    );
+
     var iosDetails = const IOSNotificationDetails();
-    var generalNotificationDetails =
-        NotificationDetails(android: androidDetails, iOS: iosDetails);
+
+    var generalNotificationDetails = NotificationDetails(android: androidDetails, iOS: iosDetails);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
       if (notification != null && android != null) {
-        fltNotification.show(notification.hashCode, notification.title,
-            notification.body, generalNotificationDetails,
+        fltNotification.show(notification.hashCode, notification.title, notification.body, generalNotificationDetails,
             payload: message.data['route']);
       }
     });

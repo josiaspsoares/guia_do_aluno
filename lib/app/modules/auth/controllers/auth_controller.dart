@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:guia_do_aluno/app/modules/auth/errors/auth_exception.dart';
@@ -45,9 +46,7 @@ abstract class _AuthControllerBase with Store {
         loading = false;
       } else {
         try {
-          await repository
-              .getCurrentUserObject(userID: currenUser.uid)
-              .then((value) async {
+          await repository.getCurrentUserObject(userID: currenUser.uid).then((value) async {
             user = value;
 
             SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -57,6 +56,8 @@ abstract class _AuthControllerBase with Store {
             await prefs.setString('email', user!.email);
             await prefs.setString('role', user!.role);
 
+            await FirebaseMessaging.instance.subscribeToTopic('auth');
+
             loading = false;
           });
         } catch (e) {
@@ -64,8 +65,7 @@ abstract class _AuthControllerBase with Store {
             '/erro',
             arguments: GenericErrorModel(
               title: 'Acesso Negado',
-              message:
-                  'Para acessar esse recurso, você deve fazer login com seu endereço de email institucional',
+              message: 'Para acessar esse recurso, você deve fazer login com seu endereço de email institucional',
               hasButton: true,
               buttonText: 'Realizar Login',
               buttonAction: () {
@@ -122,8 +122,7 @@ abstract class _AuthControllerBase with Store {
         '/erro',
         arguments: GenericErrorModel(
           title: 'Ops!',
-          message:
-              'Falha ao realizar login, verifique sua conexão com a internet. Caso o problema persista, entre em contato conosco',
+          message: 'Falha ao realizar login, verifique sua conexão com a internet. Caso o problema persista, entre em contato conosco',
           hasButton: true,
           buttonText: 'Tentar Novamente',
           buttonAction: () {
@@ -149,6 +148,8 @@ abstract class _AuthControllerBase with Store {
         await prefs.remove('avatarUrl');
         await prefs.remove('email');
         await prefs.remove('role');
+
+        await FirebaseMessaging.instance.unsubscribeFromTopic('auth');
 
         Modular.to.pushReplacementNamed('/');
       });
